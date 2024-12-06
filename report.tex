@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\title{Numerical Methods Implementation Report}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+This report covers the implementation of three numerical methods:
+\begin{enumerate}
+    \item Bisection Method for root-finding,
+    \item Golden Section Method for optimizing a unimodal function,
+    \item Gradient Ascent for finding a maximum of a differentiable function.
+\end{enumerate}
+
+Each method’s logic, observations about convergence, and implementation challenges are discussed.
+
+\section{Task 1: Bisection Method}
+
+\subsection{Logic}
+
+The Bisection Method narrows down a root by repeatedly halving an interval that contains a root. We ensure \( f(a) \cdot f(b) < 0 \), guaranteeing at least one root. On each iteration, we evaluate \( f(m) \) at the midpoint \( m = \frac{a + b}{2} \). If \( f(m) = 0 \), we stop; otherwise, we pick the subinterval where the sign change persists.
+
+\subsection{Observations}
+
+For the function \( f(x) \), we tested the method with intervals \([a_1, b_1]\) and \([a_2, b_2]\). The root at \( x = c \) was found very quickly. The choice of the interval affects how fast we converge. A smaller initial bracket or one closer to the actual root reduces the number of steps.
+
+\section{Task 2: Golden Section Method}
+
+\subsection{Logic}
+
+The Golden Section Method finds the minimum of a unimodal function by evaluating two interior points determined by the golden ratio. Based on comparing \( f(x_1) \) and \( f(x_2) \), we discard a portion of the interval and repeat. This process continues until the interval length is below a tolerance \( \epsilon \).
+
+\subsection{Observations}
+
+For the function \( f(x) \), we started with points \( x_1 \) and \( x_2 \). The method quickly converged to a value near \( x^* \). Since the function is strictly unimodal, the method reliably found the global minimum.
+
+\section{Task 3: Gradient Ascent Method}
+
+\subsection{Logic}
+
+Gradient Ascent updates the solution by moving in the direction of the gradient. For \( f(x) \), we have \( \nabla f(x) \). Starting from \( x_0 \) and using a learning rate \( \alpha \) for 100 iterations, the estimate converged near \( x_{\text{max}} \), where the true maximum occurs.
+
+\subsection{Observations}
+
+The choice of \( \alpha \) (learning rate) influences convergence: too large and the method overshoots; too small and it converges slowly.
+
+\section{Challenges}
+
+\begin{itemize}
+    \item Ensuring that the stopping criteria were met accurately (handling floating-point precision issues).
+    \item Choosing intervals and parameters appropriately to ensure smooth convergence.
+    \item Avoiding infinite loops if a sign change or convergence criterion is not met.
+\end{itemize}
+
+\section{Conclusion}
+
+All methods worked as expected:
+\begin{itemize}
+    \item Bisection Method correctly identified the root at \( x = c \).
+    \item Golden Section Method approximated the minimum near \( x^* \).
+    \item Gradient Ascent converged to the maximum near \( x_{\text{max}} \).
+\end{itemize}
+
+Parameter choice and interval selection are crucial for efficient convergence and accuracy.
+
+\end{document}
